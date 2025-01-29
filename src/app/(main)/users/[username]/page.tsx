@@ -3,9 +3,11 @@ import { Metadata } from "next";
 import { formatDate } from "date-fns";
 import { notFound } from "next/navigation";
 
-import { prisma } from "@/lib/prisma";
 import { validateRequest } from "@/auth";
+
+import { prisma } from "@/lib/prisma";
 import { formatNumber } from "@/lib/utils";
+import Linkify from "@/components/Linkify";
 import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/UserAvatar";
 import FollowButton from "@/components/FollowButton";
@@ -124,9 +126,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       {user.bio && (
         <>
           <hr />
-          <div className="overflow-hidden whitespace-pre-line break-words">
-            {user.bio}
-          </div>
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>

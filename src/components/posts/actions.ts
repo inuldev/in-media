@@ -1,7 +1,8 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import { validateRequest } from "@/auth";
+
+import { prisma } from "@/lib/prisma";
 import { getPostDataInclude } from "@/lib/types";
 
 export async function deletePost(id: string) {
