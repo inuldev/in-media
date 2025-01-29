@@ -7,15 +7,16 @@ import { validateRequest } from "@/auth";
 
 import { prisma } from "@/lib/prisma";
 import { formatNumber } from "@/lib/utils";
+import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
+
 import Linkify from "@/components/Linkify";
-import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/UserAvatar";
 import FollowButton from "@/components/FollowButton";
 import FollowerCount from "@/components/FollowerCount";
 import TrendsSidebar from "@/components/TrendsSidebar";
-import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 
 import UserPosts from "./UserPosts";
+import EditProfileButton from "./EditProfileButton";
 
 interface PageProps {
   params: { username: string };
@@ -118,7 +119,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit profile</Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
