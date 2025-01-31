@@ -1,25 +1,22 @@
-import { useRouter } from "next/navigation";
 import {
   InfiniteData,
   QueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import { PostsPage } from "@/lib/types";
+import { useToast } from "@/hooks/use-toast";
 import { useUploadThing } from "@/lib/uploadthing";
 import { UpdateUserProfileValues } from "@/lib/validation";
 
-import { useToast } from "@/hooks/use-toast";
 import { updateUserProfile } from "./actions";
 
 export function useUpdateProfileMutation() {
   const { toast } = useToast();
-
   const router = useRouter();
-
   const queryClient = useQueryClient();
-
   const { startUpload: startAvatarUpload } = useUploadThing("avatar");
 
   const mutation = useMutation({
