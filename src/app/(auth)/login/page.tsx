@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import loginImage from "@/assets/login-image.jpg";
 
 import LoginForm from "./LoginForm";
-import GoogleSignInButton from "./GoogleSignInButton";
+import GoogleSignInButton from "./google/GoogleSignInButton";
 
 export const metadata: Metadata = {
   title: "Login",
