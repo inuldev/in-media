@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  rewrites: () => {
+  rewrites: async () => {
     return [
       {
         source: "/hashtag/:tag",

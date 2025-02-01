@@ -5,8 +5,9 @@ import { getUserDataSelect } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params: { username } }: { params: { username: string } }
+  { params }: { params: { username: string } }
 ) {
+  const { username } = await params; // Await params before using its properties
   try {
     const { user: loggedInUser } = await validateRequest();
 

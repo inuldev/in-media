@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { Metadata } from "next";
 import { formatDate } from "date-fns";
+import { id } from "date-fns/locale";
 import { notFound } from "next/navigation";
 
 import { validateRequest } from "@/auth";
@@ -39,8 +40,9 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
 });
 
 export async function generateMetadata({
-  params: { username },
+  params,
 }: PageProps): Promise<Metadata> {
+  const { username } = await params; // Await params before using its properties
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) return {};
@@ -52,7 +54,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { username } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { username } = await params; // Await params before using its properties
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) {
@@ -107,7 +110,10 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
             <h1 className="text-3xl font-bold">{user.displayName}</h1>
             <div className="text-muted-foreground">@{user.username}</div>
           </div>
-          <div>Member since {formatDate(user.createdAt, "MMM d, yyyy")}</div>
+          <div>
+            Member since{" "}
+            {formatDate(user.createdAt, "d MMM, yyyy", { locale: id })}
+          </div>
           <div className="flex items-center gap-3">
             <span>
               Posts:{" "}

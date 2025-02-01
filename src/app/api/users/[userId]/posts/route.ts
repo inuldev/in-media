@@ -7,8 +7,9 @@ import { getPostDataInclude, PostsPage } from "@/lib/types";
 
 export async function GET(
   req: NextRequest,
-  { params: { userId } }: { params: { userId: string } }
+  { params }: { params: { userId: string } }
 ) {
+  const { userId } = await params; // Await params before using its properties
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 

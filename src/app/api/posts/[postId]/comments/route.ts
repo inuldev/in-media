@@ -7,8 +7,9 @@ import { CommentsPage, getCommentDataInclude } from "@/lib/types";
 
 export async function GET(
   req: NextRequest,
-  { params: { postId } }: { params: { postId: string } }
+  { params }: { params: { postId: string } }
 ) {
+  const { postId } = await params; // Await params before using its properties
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
