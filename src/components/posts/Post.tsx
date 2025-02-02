@@ -1,22 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
 import { MessageSquare } from "lucide-react";
-
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { Media } from "@prisma/client";
+
+import { useSession } from "@/app/(main)/SessionProvider";
 import { PostData } from "@/lib/types";
 import { cn, formatRelativeDate } from "@/lib/utils";
-import { useSession } from "@/app/(main)/SessionProvider";
-
+import Comments from "../comments/Comments";
 import Linkify from "../Linkify";
-import LikeButton from "./LikeButton";
 import UserAvatar from "../UserAvatar";
 import UserTooltip from "../UserTooltip";
-import Comments from "../comments/Comments";
-import PostMoreButton from "./PostMoreButton";
 import BookmarkButton from "./BookmarkButton";
+import LikeButton from "./LikeButton";
+import PostMoreButton from "./PostMoreButton";
 
 interface PostProps {
   post: PostData;
@@ -86,7 +85,7 @@ export default function Post({ post }: PostProps) {
           postId={post.id}
           initialState={{
             isBookmarkedByUser: post.bookmarks.some(
-              (bookmark) => bookmark.userId === user.id
+              (bookmark) => bookmark.userId === user.id,
             ),
           }}
         />
@@ -105,7 +104,7 @@ function MediaPreviews({ attachments }: MediaPreviewsProps) {
     <div
       className={cn(
         "flex flex-col gap-3",
-        attachments.length > 1 && "sm:grid sm:grid-cols-2"
+        attachments.length > 1 && "sm:grid sm:grid-cols-2",
       )}
     >
       {attachments.map((m) => (

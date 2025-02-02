@@ -1,19 +1,17 @@
-import Link from "next/link";
-import { Metadata } from "next";
 import { Loader2 } from "lucide-react";
-import { cache, Suspense } from "react";
+import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache, Suspense } from "react";
 
 import { validateRequest } from "@/auth";
-
-import { prisma } from "@/lib/prisma";
-import { getPostDataInclude, UserData } from "@/lib/types";
-
+import FollowButton from "@/components/FollowButton";
 import Linkify from "@/components/Linkify";
 import Post from "@/components/posts/Post";
 import UserAvatar from "@/components/UserAvatar";
 import UserTooltip from "@/components/UserTooltip";
-import FollowButton from "@/components/FollowButton";
+import prisma from "@/lib/prisma";
+import { getPostDataInclude, UserData } from "@/lib/types";
 
 interface PageProps {
   params: { postId: string };
@@ -112,7 +110,7 @@ async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
           initialState={{
             followers: user._count.followers,
             isFollowedByUser: user.followers.some(
-              ({ followerId }) => followerId === loggedInUser.id
+              ({ followerId }) => followerId === loggedInUser.id,
             ),
           }}
         />

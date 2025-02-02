@@ -6,10 +6,10 @@ import {
 } from "@tanstack/react-query";
 import { Heart } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import kyInstance from "@/lib/ky";
 import { LikeInfo } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+import { useToast } from "../ui/use-toast";
 
 interface LikeButtonProps {
   postId: string;
@@ -18,7 +18,9 @@ interface LikeButtonProps {
 
 export default function LikeButton({ postId, initialState }: LikeButtonProps) {
   const { toast } = useToast();
+
   const queryClient = useQueryClient();
+
   const queryKey: QueryKey = ["like-info", postId];
 
   const { data } = useQuery({
@@ -62,7 +64,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
       <Heart
         className={cn(
           "size-5",
-          data.isLikedByUser && "fill-red-500 text-red-500"
+          data.isLikedByUser && "fill-red-500 text-red-500",
         )}
       />
       <span className="text-sm font-medium tabular-nums">

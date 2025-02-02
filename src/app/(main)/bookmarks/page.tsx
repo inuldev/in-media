@@ -1,7 +1,5 @@
-import { Metadata } from "next";
-
 import TrendsSidebar from "@/components/TrendsSidebar";
-
+import { Metadata } from "next";
 import Bookmarks from "./Bookmarks";
 
 export const metadata: Metadata = {

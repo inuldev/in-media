@@ -1,13 +1,13 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import Post from "@/components/posts/Post";
+import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
-import Post from "@/components/posts/Post";
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 
 interface UserPostsProps {
   userId: string;
@@ -27,7 +27,7 @@ export default function UserPosts({ userId }: UserPostsProps) {
       kyInstance
         .get(
           `/api/users/${userId}/posts`,
-          pageParam ? { searchParams: { cursor: pageParam } } : {}
+          pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
     initialPageParam: null as string | null,

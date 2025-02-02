@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Loader2, SendHorizonal } from "lucide-react";
 
 import { PostData } from "@/lib/types";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { useSubmitCommentMutation } from "./mutations";
 
 interface CommentInputProps {
@@ -27,7 +27,7 @@ export default function CommentInput({ post }: CommentInputProps) {
       },
       {
         onSuccess: () => setInput(""),
-      }
+      },
     );
   }
 

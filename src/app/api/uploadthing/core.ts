@@ -1,10 +1,8 @@
-import { UploadThingError, UTApi } from "uploadthing/server";
-import { createUploadthing, FileRouter } from "uploadthing/next";
-
 import { validateRequest } from "@/auth";
-
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
+import { createUploadthing, FileRouter } from "uploadthing/next";
+import { UploadThingError, UTApi } from "uploadthing/server";
 
 const f = createUploadthing();
 
@@ -24,7 +22,7 @@ export const fileRouter = {
 
       if (oldAvatarUrl) {
         const key = oldAvatarUrl.split(
-          `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`
+          `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`,
         )[1];
 
         await new UTApi().deleteFiles(key);
@@ -32,7 +30,7 @@ export const fileRouter = {
 
       const newAvatarUrl = file.url.replace(
         "/f/",
-        `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`
+        `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`,
       );
 
       await Promise.all([
@@ -68,7 +66,7 @@ export const fileRouter = {
         data: {
           url: file.url.replace(
             "/f/",
-            `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`
+            `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`,
           ),
           type: file.type.startsWith("image") ? "IMAGE" : "VIDEO",
         },

@@ -1,8 +1,8 @@
 "use client";
 
-import { formatNumber } from "@/lib/utils";
-import { FollowerInfo } from "@/lib/types";
 import useFollowerInfo from "@/hooks/useFollowerInfo";
+import { FollowerInfo } from "@/lib/types";
+import { formatNumber } from "@/lib/utils";
 
 interface FollowerCountProps {
   userId: string;

@@ -1,18 +1,17 @@
+import { MailPlus, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   ChannelList,
   ChannelPreviewMessenger,
   ChannelPreviewUIComponentProps,
   useChatContext,
 } from "stream-chat-react";
-import { MailPlus, X } from "lucide-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
-import NewChatDialog from "./NewChatDialog";
+import { cn } from "@/lib/utils";
 import { useSession } from "../SessionProvider";
+import NewChatDialog from "./NewChatDialog";
 
 interface ChatSidebarProps {
   open: boolean;
@@ -42,14 +41,14 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
         }}
       />
     ),
-    [onClose]
+    [onClose],
   );
 
   return (
     <div
       className={cn(
         "size-full flex-col border-e md:flex md:w-72",
-        open ? "flex" : "hidden"
+        open ? "flex" : "hidden",
       )}
     >
       <MenuHeader onClose={onClose} />

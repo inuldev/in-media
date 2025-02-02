@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { useUploadThing } from "@/lib/uploadthing";
 
 export interface Attachment {
@@ -25,7 +25,7 @@ export default function useMediaUpload() {
           `attachment_${crypto.randomUUID()}.${extension}`,
           {
             type: file.type,
-          }
+          },
         );
       });
 
@@ -49,7 +49,7 @@ export default function useMediaUpload() {
             mediaId: uploadResult.serverData.mediaId,
             isUploading: false,
           };
-        })
+        }),
       );
     },
     onUploadError(e) {

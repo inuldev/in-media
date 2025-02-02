@@ -1,13 +1,13 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
-import kyInstance from "@/lib/ky";
 import Post from "@/components/posts/Post";
-import { PostsPage } from "@/lib/types";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+import { PostsPage } from "@/lib/types";
+import kyInstance from "@/lib/ky";
 
 export default function ForYouFeed() {
   const {
@@ -23,7 +23,7 @@ export default function ForYouFeed() {
       kyInstance
         .get(
           "/api/posts/for-you",
-          pageParam ? { searchParams: { cursor: pageParam } } : {}
+          pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
     initialPageParam: null as string | null,

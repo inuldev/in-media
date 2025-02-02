@@ -1,23 +1,20 @@
-import { cache } from "react";
-import { Metadata } from "next";
 import { formatDate } from "date-fns";
 import { id } from "date-fns/locale";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import { validateRequest } from "@/auth";
-
-import { prisma } from "@/lib/prisma";
-import { formatNumber } from "@/lib/utils";
-import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
-
-import Linkify from "@/components/Linkify";
-import UserAvatar from "@/components/UserAvatar";
 import FollowButton from "@/components/FollowButton";
 import FollowerCount from "@/components/FollowerCount";
+import Linkify from "@/components/Linkify";
 import TrendsSidebar from "@/components/TrendsSidebar";
-
-import UserPosts from "./UserPosts";
+import UserAvatar from "@/components/UserAvatar";
+import prisma from "@/lib/prisma";
+import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
+import { formatNumber } from "@/lib/utils";
 import EditProfileButton from "./EditProfileButton";
+import UserPosts from "./UserPosts";
 
 interface PageProps {
   params: { username: string };
@@ -40,9 +37,8 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
 });
 
 export async function generateMetadata({
-  params,
+  params: { username },
 }: PageProps): Promise<Metadata> {
-  const { username } = await params; // Await params before using its properties
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) return {};
@@ -54,8 +50,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: PageProps) {
-  const { username } = await params; // Await params before using its properties
+export default async function Page({ params: { username } }: PageProps) {
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) {
@@ -93,7 +88,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   const followerInfo: FollowerInfo = {
     followers: user._count.followers,
     isFollowedByUser: user.followers.some(
-      ({ followerId }) => followerId === loggedInUserId
+      ({ followerId }) => followerId === loggedInUserId,
     ),
   };
 

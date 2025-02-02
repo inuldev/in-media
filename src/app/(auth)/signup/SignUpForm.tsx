@@ -1,13 +1,13 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LoadingButton from "@/components/LoadingButton";
 import { PasswordInput } from "@/components/PasswordInput";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
-
+import { signUp } from "./actions";
 import {
   Form,
   FormControl,
@@ -17,8 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { signUp } from "./actions";
 
 export default function SignUpForm() {
   const [error, setError] = useState<string>();

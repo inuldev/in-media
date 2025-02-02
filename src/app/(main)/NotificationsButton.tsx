@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { Bell } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Bell } from "lucide-react";
+import Link from "next/link";
 
-import kyInstance from "@/lib/ky";
 import { Button } from "@/components/ui/button";
+import kyInstance from "@/lib/ky";
 import { NotificationCountInfo } from "@/lib/types";
 
 interface NotificationsButtonProps {
@@ -36,7 +36,7 @@ export default function NotificationsButton({
         <div className="relative">
           <Bell />
           {!!data.unreadCount && (
-            <span className="absolute -right-2 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
+            <span className="absolute -right-1 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
               {data.unreadCount}
             </span>
           )}

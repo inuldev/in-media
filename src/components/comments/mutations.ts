@@ -6,8 +6,7 @@ import {
 } from "@tanstack/react-query";
 
 import { CommentsPage } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
-
+import { useToast } from "../ui/use-toast";
 import { deleteComment, submitComment } from "./actions";
 
 export function useSubmitCommentMutation(postId: string) {
@@ -39,7 +38,7 @@ export function useSubmitCommentMutation(postId: string) {
               ],
             };
           }
-        }
+        },
       );
 
       queryClient.invalidateQueries({
@@ -89,7 +88,7 @@ export function useDeleteCommentMutation() {
               comments: page.comments.filter((c) => c.id !== deletedComment.id),
             })),
           };
-        }
+        },
       );
 
       toast({

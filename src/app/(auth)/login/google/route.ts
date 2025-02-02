@@ -11,7 +11,7 @@ export async function GET() {
     scopes: ["profile", "email"],
   });
 
-  (await cookies()).set("state", state, {
+  cookies().set("state", state, {
     path: "/",
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
@@ -19,7 +19,7 @@ export async function GET() {
     sameSite: "lax",
   });
 
-  (await cookies()).set("code_verifier", codeVerifier, {
+  cookies().set("code_verifier", codeVerifier, {
     path: "/",
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,

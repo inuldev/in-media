@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { Mail } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Mail } from "lucide-react";
+import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
 import { MessageCountInfo } from "@/lib/types";
-import { Button } from "@/components/ui/button";
 
 interface MessagesButtonProps {
   initialState: MessageCountInfo;
@@ -32,7 +32,7 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
         <div className="relative">
           <Mail />
           {!!data.unreadCount && (
-            <span className="absolute -right-2 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
+            <span className="absolute -right-1 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
               {data.unreadCount}
             </span>
           )}

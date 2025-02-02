@@ -7,8 +7,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 
 import { PostsPage } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
-
+import { useToast } from "../ui/use-toast";
 import { deletePost } from "./actions";
 
 export function useDeletePostMutation() {
@@ -38,7 +37,7 @@ export function useDeletePostMutation() {
               posts: page.posts.filter((p) => p.id !== deletedPost.id),
             })),
           };
-        }
+        },
       );
 
       toast({

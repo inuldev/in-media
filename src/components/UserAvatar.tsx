@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import { cn } from "@/lib/utils";
 import avatarPlaceholder from "@/assets/avatar-placeholder.png";
+import { cn } from "@/lib/utils";
 
 interface UserAvatarProps {
   avatarUrl: string | null | undefined;
@@ -22,7 +22,7 @@ export default function UserAvatar({
       height={size ?? 48}
       className={cn(
         "aspect-square h-fit flex-none rounded-full bg-secondary object-cover",
-        className
+        className,
       )}
     />
   );

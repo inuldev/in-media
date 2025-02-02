@@ -1,11 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   experimental: {
     staleTimes: {
       dynamic: 30,
     },
   },
+  serverExternalPackages: ["@node-rs/argon2"],
   images: {
     remotePatterns: [
       {
@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  rewrites: async () => {
+  rewrites: () => {
     return [
       {
         source: "/hashtag/:tag",

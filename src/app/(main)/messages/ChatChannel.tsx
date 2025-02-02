@@ -1,3 +1,4 @@
+import { Menu } from "lucide-react";
 import {
   Channel,
   ChannelHeader,
@@ -6,7 +7,6 @@ import {
   MessageList,
   Window,
 } from "stream-chat-react";
-import { Menu } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";

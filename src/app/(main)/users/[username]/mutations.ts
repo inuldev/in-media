@@ -6,17 +6,19 @@ import {
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import { useToast } from "@/components/ui/use-toast";
 import { PostsPage } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
 import { useUploadThing } from "@/lib/uploadthing";
 import { UpdateUserProfileValues } from "@/lib/validation";
-
 import { updateUserProfile } from "./actions";
 
 export function useUpdateProfileMutation() {
   const { toast } = useToast();
+
   const router = useRouter();
+
   const queryClient = useQueryClient();
+
   const { startUpload: startAvatarUpload } = useUploadThing("avatar");
 
   const mutation = useMutation({
@@ -64,7 +66,7 @@ export function useUpdateProfileMutation() {
               }),
             })),
           };
-        }
+        },
       );
 
       router.refresh();

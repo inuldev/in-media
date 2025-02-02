@@ -6,10 +6,10 @@ import {
 } from "@tanstack/react-query";
 import { Bookmark } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import kyInstance from "@/lib/ky";
 import { BookmarkInfo } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+import { useToast } from "../ui/use-toast";
 
 interface BookmarkButtonProps {
   postId: string;
@@ -69,7 +69,7 @@ export default function BookmarkButton({
       <Bookmark
         className={cn(
           "size-5",
-          data.isBookmarkedByUser && "fill-primary text-primary"
+          data.isBookmarkedByUser && "fill-primary text-primary",
         )}
       />
     </button>

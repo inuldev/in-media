@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { UserResponse } from "stream-chat";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Check, Loader2, SearchIcon, X } from "lucide-react";
+import { useState } from "react";
+import { UserResponse } from "stream-chat";
 import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
 
 import {
@@ -11,11 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
-import useDebounce from "@/hooks/useDebounce";
-import UserAvatar from "@/components/UserAvatar";
+import { useToast } from "@/components/ui/use-toast";
 import LoadingButton from "@/components/LoadingButton";
-
+import UserAvatar from "@/components/UserAvatar";
+import useDebounce from "@/hooks/useDebounce";
 import { useSession } from "../SessionProvider";
 
 interface NewChatDialogProps {
@@ -57,7 +56,7 @@ export default function NewChatDialog({
             : {}),
         },
         { name: 1, username: 1 },
-        { limit: 15 }
+        { limit: 15 },
       ),
   });
 
@@ -112,7 +111,7 @@ export default function NewChatDialog({
                   user={user}
                   onRemove={() => {
                     setSelectedUsers((prev) =>
-                      prev.filter((u) => u.id !== user.id)
+                      prev.filter((u) => u.id !== user.id),
                     );
                   }}
                 />
@@ -131,7 +130,7 @@ export default function NewChatDialog({
                     setSelectedUsers((prev) =>
                       prev.some((u) => u.id === user.id)
                         ? prev.filter((u) => u.id !== user.id)
-                        : [...prev, user]
+                        : [...prev, user],
                     );
                   }}
                 />

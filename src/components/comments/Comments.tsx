@@ -1,13 +1,11 @@
-import { Loader2 } from "lucide-react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
 import kyInstance from "@/lib/ky";
 import { CommentsPage, PostData } from "@/lib/types";
-
+import { Button } from "../ui/button";
 import Comment from "./Comment";
 import CommentInput from "./CommentInput";
-
-import { Button } from "../ui/button";
 
 interface CommentsProps {
   post: PostData;
@@ -21,7 +19,7 @@ export default function Comments({ post }: CommentsProps) {
         kyInstance
           .get(
             `/api/posts/${post.id}/comments`,
-            pageParam ? { searchParams: { cursor: pageParam } } : {}
+            pageParam ? { searchParams: { cursor: pageParam } } : {},
           )
           .json<CommentsPage>(),
       initialPageParam: null as string | null,

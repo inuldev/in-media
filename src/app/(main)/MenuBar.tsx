@@ -2,13 +2,11 @@ import Link from "next/link";
 import { Bookmark, Home } from "lucide-react";
 
 import { validateRequest } from "@/auth";
-import { Button } from "@/components/ui/button";
-
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
-
 import MessagesButton from "./MessagesButton";
 import NotificationsButton from "./NotificationsButton";
+import { Button } from "@/components/ui/button";
 
 interface MenuBarProps {
   className?: string;

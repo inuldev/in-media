@@ -4,14 +4,12 @@ import { Loader2 } from "lucide-react";
 import { unstable_cache } from "next/cache";
 
 import { validateRequest } from "@/auth";
-
-import { prisma } from "@/lib/prisma";
-import { formatNumber } from "@/lib/utils";
+import prisma from "@/lib/prisma";
 import { getUserDataSelect } from "@/lib/types";
-
+import { formatNumber } from "@/lib/utils";
+import FollowButton from "./FollowButton";
 import UserAvatar from "./UserAvatar";
 import UserTooltip from "./UserTooltip";
-import FollowButton from "./FollowButton";
 
 export default function TrendsSidebar() {
   return (
@@ -70,7 +68,7 @@ async function WhoToFollow() {
             initialState={{
               followers: user._count.followers,
               isFollowedByUser: user.followers.some(
-                ({ followerId }) => followerId === user.id
+                ({ followerId }) => followerId === user.id,
               ),
             }}
           />
@@ -98,7 +96,7 @@ const getTrendingTopics = unstable_cache(
   ["trending_topics"],
   {
     revalidate: 3 * 60 * 60,
-  }
+  },
 );
 
 async function TrendingTopics() {

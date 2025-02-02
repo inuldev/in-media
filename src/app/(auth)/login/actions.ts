@@ -1,12 +1,12 @@
 "use server";
 
-import { lucia } from "@/auth";
 import { cookies } from "next/headers";
 import { verify } from "@node-rs/argon2";
 import { redirect } from "next/navigation";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
-import { prisma } from "@/lib/prisma";
+import { lucia } from "@/auth";
+import prisma from "@/lib/prisma";
 import { loginSchema, LoginValues } from "@/lib/validation";
 
 export async function login(
@@ -45,7 +45,7 @@ export async function login(
 
     const session = await lucia.createSession(existingUser.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
-    (await cookies()).set(
+    cookies().set(
       sessionCookie.name,
       sessionCookie.value,
       sessionCookie.attributes,

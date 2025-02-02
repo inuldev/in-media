@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { UserData } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { UserData } from "@/lib/types";
 import EditProfileDialog from "./EditProfileDialog";
 
 interface EditProfileButtonProps {

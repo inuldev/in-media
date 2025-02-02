@@ -1,22 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import StarterKit from "@tiptap/starter-kit";
 import { ClipboardEvent, useRef } from "react";
-import { useDropzone } from "@uploadthing/react";
 import { ImageIcon, Loader2, X } from "lucide-react";
-import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
+import { useDropzone } from "@uploadthing/react";
 
-import { cn } from "@/lib/utils";
+import { useSession } from "@/app/(main)/SessionProvider";
+import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/UserAvatar";
-import LoadingButton from "@/components/LoadingButton";
-import { useSession } from "@/app/(main)/SessionProvider";
-
-import "./styles.css";
+import { cn } from "@/lib/utils";
 import { useSubmitPostMutation } from "./mutations";
 import useMediaUpload, { Attachment } from "./useMediaUpload";
+import "./styles.css";
 
 export default function PostEditor() {
   const { user } = useSession();
@@ -45,7 +44,7 @@ export default function PostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: "What's crack-a-lackin'?",
+        placeholder: "What's on your mind?",
       }),
     ],
     immediatelyRender: false,
@@ -67,7 +66,7 @@ export default function PostEditor() {
           editor?.commands.clearContent();
           resetMediaUploads();
         },
-      }
+      },
     );
   }
 
@@ -87,7 +86,7 @@ export default function PostEditor() {
             editor={editor}
             className={cn(
               "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3",
-              isDragActive && "outline-dashed"
+              isDragActive && "outline-dashed",
             )}
             onPaste={onPaste}
           />
@@ -177,7 +176,7 @@ function AttachmentPreviews({
     <div
       className={cn(
         "flex flex-col gap-3",
-        attachments.length > 1 && "sm:grid sm:grid-cols-2"
+        attachments.length > 1 && "sm:grid sm:grid-cols-2",
       )}
     >
       {attachments.map((attachment) => (

@@ -23,13 +23,12 @@ export function formatRelativeDate(from: Date) {
 export function formatNumber(n: number): string {
   return Intl.NumberFormat("id-ID", {
     notation: "compact",
-    maximumFractionDigits: 1,
+    maximumFractionDigits: 0,
     signDisplay: "auto", // Handles negative numbers
   }).format(n);
 }
 
 export function slugify(input: string): string {
-  if (!input) return "";
   return input
     .toLowerCase()
     .replace(/ /g, "-")

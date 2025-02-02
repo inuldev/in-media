@@ -5,7 +5,7 @@ import { FollowerInfo } from "@/lib/types";
 
 export default function useFollowerInfo(
   userId: string,
-  initialState: FollowerInfo
+  initialState: FollowerInfo,
 ) {
   const query = useQuery({
     queryKey: ["follower-info", userId],

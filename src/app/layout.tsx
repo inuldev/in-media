@@ -1,29 +1,27 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Geist, Geist_Mono } from "next/font/google";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-
-import "./globals.css";
-import { fileRouter } from "./api/uploadthing/core";
-import ReactQueryProvider from "./ReactQueryProvider";
-
-import { Toaster } from "@/components/ui/toaster";
 import { extractRouterConfig } from "uploadthing/server";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Toaster } from "@/components/ui/toaster";
+import localFont from "next/font/local";
+import { fileRouter } from "./api/uploadthing/core";
+import ReactQueryProvider from "./ReactQueryProvider";
+import "./globals.css";
 
-const geistMono = Geist_Mono({
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | in-media",
-    default: "in-media",
+    template: "%s | inMedia",
+    default: "inMedia",
   },
   description: "The social media app",
 };
@@ -35,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
         <ReactQueryProvider>
           <ThemeProvider

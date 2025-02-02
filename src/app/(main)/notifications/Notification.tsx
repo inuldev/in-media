@@ -1,11 +1,10 @@
 import Link from "next/link";
-import React, { ReactElement } from "react";
 import { Heart, MessageCircle, User2 } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { NotificationData } from "@/lib/types";
-import UserAvatar from "@/components/UserAvatar";
 import { NotificationType } from "@prisma/client";
+
+import UserAvatar from "@/components/UserAvatar";
+import { NotificationData } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface NotificationProps {
   notification: NotificationData;
@@ -14,7 +13,7 @@ interface NotificationProps {
 export default function Notification({ notification }: NotificationProps) {
   const notificationTypeMap: Record<
     NotificationType,
-    { message: string; icon: ReactElement; href: string }
+    { message: string; icon: JSX.Element; href: string }
   > = {
     FOLLOW: {
       message: `${notification.issuer.displayName} followed you`,
@@ -40,7 +39,7 @@ export default function Notification({ notification }: NotificationProps) {
       <article
         className={cn(
           "flex gap-3 rounded-2xl bg-card p-5 shadow-sm transition-colors hover:bg-card/70",
-          !notification.read && "bg-primary/10"
+          !notification.read && "bg-primary/10",
         )}
       >
         <div className="my-1">{icon}</div>

@@ -1,10 +1,9 @@
 "use server";
 
 import { validateRequest } from "@/auth";
-
-import { prisma } from "@/lib/prisma";
-import { createCommentSchema } from "@/lib/validation";
+import prisma from "@/lib/prisma";
 import { getCommentDataInclude, PostData } from "@/lib/types";
+import { createCommentSchema } from "@/lib/validation";
 
 export async function submitComment({
   post,

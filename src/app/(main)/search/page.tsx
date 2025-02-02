@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 
 import TrendsSidebar from "@/components/TrendsSidebar";
-
 import SearchResults from "./SearchResults";
 
 interface PageProps {

@@ -1,18 +1,18 @@
 "use server";
 
-import { lucia } from "@/auth";
 import { cookies } from "next/headers";
-import { hash } from "@node-rs/argon2";
 import { redirect } from "next/navigation";
+import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
-import { prisma } from "@/lib/prisma";
-import streamServerClient from "@/lib/stream";
+import { lucia } from "@/auth";
+import prisma from "@/lib/prisma";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
+import streamServerClient from "@/lib/stream";
 
 export async function signUp(
-  credentials: SignUpValues
+  credentials: SignUpValues,
 ): Promise<{ error: string }> {
   try {
     const { username, email, password } = signUpSchema.parse(credentials);
@@ -75,10 +75,10 @@ export async function signUp(
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
-    (await cookies()).set(
+    cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
 
     return redirect("/");

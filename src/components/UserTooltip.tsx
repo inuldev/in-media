@@ -3,19 +3,18 @@
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 
-import { FollowerInfo, UserData } from "@/lib/types";
 import { useSession } from "@/app/(main)/SessionProvider";
-
-import Linkify from "./Linkify";
-import UserAvatar from "./UserAvatar";
+import { FollowerInfo, UserData } from "@/lib/types";
 import FollowButton from "./FollowButton";
 import FollowerCount from "./FollowerCount";
+import Linkify from "./Linkify";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import UserAvatar from "./UserAvatar";
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData;
@@ -27,7 +26,7 @@ export default function UserTooltip({ children, user }: UserTooltipProps) {
   const followerState: FollowerInfo = {
     followers: user._count.followers,
     isFollowedByUser: !!user.followers.some(
-      ({ followerId }) => followerId === loggedInUser.id
+      ({ followerId }) => followerId === loggedInUser.id,
     ),
   };
 
