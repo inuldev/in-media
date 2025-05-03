@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 import TrendsSidebar from "@/components/TrendsSidebar";
+
 import SearchResults from "./SearchResults";
 
 interface PageProps {
@@ -9,7 +10,7 @@ interface PageProps {
 
 export function generateMetadata({ searchParams: { q } }: PageProps): Metadata {
   return {
-    title: `Search results for "${q}"`,
+    title: `Hasil pencarian untuk "${q}"`,
   };
 }
 
@@ -19,7 +20,7 @@ export default function Page({ searchParams: { q } }: PageProps) {
       <div className="w-full min-w-0 space-y-5">
         <div className="rounded-2xl bg-card p-5 shadow-sm">
           <h1 className="line-clamp-2 break-all text-center text-2xl font-bold">
-            Search results for &quot;{q}&quot;
+            Hasil pencarian untuk &quot;{q}&quot;
           </h1>
         </div>
         <SearchResults query={q} />

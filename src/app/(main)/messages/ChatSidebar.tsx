@@ -8,10 +8,11 @@ import {
   useChatContext,
 } from "stream-chat-react";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useSession } from "../SessionProvider";
+import { Button } from "@/components/ui/button";
+
 import NewChatDialog from "./NewChatDialog";
+import { useSession } from "../SessionProvider";
 
 interface ChatSidebarProps {
   open: boolean;

@@ -1,11 +1,11 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { Bell } from "lucide-react";
 import Link from "next/link";
+import { Bell } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
-import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
+import { Button } from "@/components/ui/button";
 import { NotificationCountInfo } from "@/lib/types";
 
 interface NotificationsButtonProps {

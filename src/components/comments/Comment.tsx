@@ -1,8 +1,9 @@
 import Link from "next/link";
 
-import { useSession } from "@/app/(main)/SessionProvider";
 import { CommentData } from "@/lib/types";
 import { formatRelativeDate } from "@/lib/utils";
+import { useSession } from "@/app/(main)/SessionProvider";
+
 import UserAvatar from "../UserAvatar";
 import UserTooltip from "../UserTooltip";
 import CommentMoreButton from "./CommentMoreButton";

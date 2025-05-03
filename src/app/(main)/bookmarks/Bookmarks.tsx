@@ -39,7 +39,7 @@ export default function Bookmarks() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        You don&apos;t have any bookmarks yet.
+        Belum ada post yang disimpan.
       </p>
     );
   }
@@ -47,7 +47,7 @@ export default function Bookmarks() {
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error occurred while loading bookmarks.
+        Gagal memuat post yang disimpan.
       </p>
     );
   }

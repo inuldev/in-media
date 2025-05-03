@@ -1,13 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Camera } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Resizer from "react-image-file-resizer";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Image, { StaticImageData } from "next/image";
 
-import avatarPlaceholder from "@/assets/avatar-placeholder.png";
-import CropImageDialog from "@/components/CropImageDialog";
+import { UserData } from "@/lib/types";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import LoadingButton from "@/components/LoadingButton";
+import CropImageDialog from "@/components/CropImageDialog";
+import avatarPlaceholder from "@/assets/avatar-placeholder.png";
 import {
   Dialog,
   DialogContent,
@@ -23,14 +27,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { UserData } from "@/lib/types";
 import {
   updateUserProfileSchema,
   UpdateUserProfileValues,
 } from "@/lib/validation";
+
 import { useUpdateProfileMutation } from "./mutations";
 
 interface EditProfileDialogProps {
@@ -79,7 +80,7 @@ export default function EditProfileDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Edit Profil</DialogTitle>
         </DialogHeader>
         <div className="space-y-1.5">
           <Label>Avatar</Label>

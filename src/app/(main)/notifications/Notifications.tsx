@@ -1,17 +1,18 @@
 "use client";
 
+import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
 import {
   useInfiniteQuery,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
-import { useEffect } from "react";
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { NotificationsPage } from "@/lib/types";
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+
 import Notification from "./Notification";
 
 export default function Notifications() {
@@ -62,16 +63,14 @@ export default function Notifications() {
   if (status === "success" && !notifications.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        You don&apos;t have any notifications yet.
+        Kamu belum memiliki notifikasi.
       </p>
     );
   }
 
   if (status === "error") {
     return (
-      <p className="text-center text-destructive">
-        An error occurred while loading notifications.
-      </p>
+      <p className="text-center text-destructive">Gagal memuat notifikasi.</p>
     );
   }
 

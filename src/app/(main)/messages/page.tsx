@@ -1,8 +1,9 @@
 import { Metadata } from "next";
+
 import Chat from "./Chat";
 
 export const metadata: Metadata = {
-  title: "Messages",
+  title: "Pesan",
 };
 
 export default function Page() {

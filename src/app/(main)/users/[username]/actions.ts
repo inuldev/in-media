@@ -1,7 +1,7 @@
 "use server";
 
-import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
+import { validateRequest } from "@/auth";
 import streamServerClient from "@/lib/stream";
 import { getUserDataSelect } from "@/lib/types";
 import {

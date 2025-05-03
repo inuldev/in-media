@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Heart, MessageCircle, User2 } from "lucide-react";
 import { NotificationType } from "@prisma/client";
+import { Heart, MessageCircle, User2 } from "lucide-react";
 
-import UserAvatar from "@/components/UserAvatar";
-import { NotificationData } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { NotificationData } from "@/lib/types";
+import UserAvatar from "@/components/UserAvatar";
 
 interface NotificationProps {
   notification: NotificationData;

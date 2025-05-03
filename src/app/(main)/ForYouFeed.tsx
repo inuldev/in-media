@@ -1,13 +1,13 @@
 "use client";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
+import kyInstance from "@/lib/ky";
+import { PostsPage } from "@/lib/types";
 import Post from "@/components/posts/Post";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import { PostsPage } from "@/lib/types";
-import kyInstance from "@/lib/ky";
 
 export default function ForYouFeed() {
   const {
@@ -39,7 +39,7 @@ export default function ForYouFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        No one has posted anything yet.
+        Belum ada post yang ditemukan. Mulai mengikuti teman baru!
       </p>
     );
   }
@@ -47,7 +47,7 @@ export default function ForYouFeed() {
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error occurred while loading posts.
+        Gagal memuat post. Silakan coba lagi nanti.
       </p>
     );
   }

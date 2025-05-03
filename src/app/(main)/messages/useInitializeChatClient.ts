@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { StreamChat } from "stream-chat";
+import { useEffect, useState } from "react";
 
 import kyInstance from "@/lib/ky";
 import { useSession } from "../SessionProvider";

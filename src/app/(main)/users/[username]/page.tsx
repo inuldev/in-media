@@ -1,20 +1,21 @@
+import { cache } from "react";
+import { Metadata } from "next";
 import { formatDate } from "date-fns";
 import { id } from "date-fns/locale";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 
+import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
+import { formatNumber } from "@/lib/utils";
+import Linkify from "@/components/Linkify";
+import UserAvatar from "@/components/UserAvatar";
 import FollowButton from "@/components/FollowButton";
 import FollowerCount from "@/components/FollowerCount";
-import Linkify from "@/components/Linkify";
 import TrendsSidebar from "@/components/TrendsSidebar";
-import UserAvatar from "@/components/UserAvatar";
-import prisma from "@/lib/prisma";
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
-import { formatNumber } from "@/lib/utils";
-import EditProfileButton from "./EditProfileButton";
+
 import UserPosts from "./UserPosts";
+import EditProfileButton from "./EditProfileButton";
 
 interface PageProps {
   params: { username: string };

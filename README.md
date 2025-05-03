@@ -1,47 +1,103 @@
-<h1 align="center">✨ Social Media App With Next.js 15 ✨</h1>
+<h1 align="center">✨ Aplikasi Media Sosial dengan Next.js 15 ✨</h1>
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Ini adalah proyek [Next.js](https://nextjs.org) yang dibuat dengan [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Memulai
 
-First, run the development server:
+Pertama, jalankan server pengembangan:
 
 ```bash
 npm run dev
-# or
+# atau
 yarn dev
-# or
+# atau
 pnpm dev
-# or
+# atau
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) dengan browser Anda untuk melihat hasilnya.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Anda dapat mulai mengedit halaman dengan memodifikasi `app/page.tsx`. Halaman akan otomatis diperbarui saat Anda mengedit file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
----
-
-## ⭐DO NOT FORGET TO STAR THIS REPO⭐
+Proyek ini menggunakan [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) untuk secara otomatis mengoptimalkan dan memuat [Geist](https://vercel.com/font), font baru dari Vercel.
 
 ---
 
-If you want to learn how to create it please follow below tutorial👇:
-➡ Tutorial Link 💚 "Coding in Flow" Youtube Channel: [Build A Full-Stack Social Media App With Next.js 15 (React Query, Lucia Auth, TypeScript, Tailwind)](https://www.youtube.com/watch?v=TyV12oBDsYI)
+## ⭐JANGAN LUPA BERI BINTANG PADA REPO INI⭐
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Fitur Aplikasi
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Aplikasi media sosial Indonesia ini memiliki fitur-fitur berikut:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Antarmuka dalam Bahasa Indonesia**: Semua teks UI telah diterjemahkan ke Bahasa Indonesia
+- **Format Tanggal dan Waktu Lokal**: Menggunakan format tanggal dan waktu Indonesia
+- **Autentikasi**: Login dengan email/password atau Google
+- **Profil Pengguna**: Lihat dan edit profil pengguna
+- **Postingan**: Buat, lihat, dan berinteraksi dengan postingan
+- **Komentar**: Tambahkan komentar pada postingan
+- **Like dan Bookmark**: Sukai dan simpan postingan
+- **Follow/Following**: Ikuti pengguna lain
+- **Notifikasi**: Dapatkan notifikasi untuk aktivitas yang relevan
+- **Tema**: Pilih antara tema terang, gelap, atau default sistem
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Jika Anda ingin mempelajari cara membuatnya, silakan ikuti tutorial di bawah ini👇:
+➡ Link Tutorial 💚 Channel Youtube "Coding in Flow": [Build A Full-Stack Social Media App With Next.js 15 (React Query, Lucia Auth, TypeScript, Tailwind)](https://www.youtube.com/watch?v=TyV12oBDsYI)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pelajari Lebih Lanjut
+
+Untuk mempelajari lebih lanjut tentang Next.js, lihat sumber daya berikut:
+
+- [Dokumentasi Next.js](https://nextjs.org/docs) - pelajari tentang fitur dan API Next.js.
+- [Belajar Next.js](https://nextjs.org/learn) - tutorial Next.js interaktif.
+
+Anda dapat melihat [repositori GitHub Next.js](https://github.com/vercel/next.js) - umpan balik dan kontribusi Anda sangat diterima!
+
+## Deploy di Vercel
+
+Cara termudah untuk men-deploy aplikasi Next.js Anda adalah dengan menggunakan [Platform Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) dari pembuat Next.js.
+
+Lihat [dokumentasi deployment Next.js](https://nextjs.org/docs/app/building-your-application/deploying) untuk informasi lebih lanjut.
+
+## Teknologi yang Digunakan
+
+Aplikasi ini dibangun dengan teknologi modern berikut:
+
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Autentikasi**: Lucia Auth
+- **State Management**: React Query (TanStack Query)
+- **UI Components**: Radix UI, shadcn/ui
+- **Deployment**: Vercel (disarankan)
+
+## Mode Production
+
+Untuk menjalankan aplikasi dalam mode production, ikuti langkah-langkah berikut:
+
+1. Build aplikasi:
+
+```bash
+npm run build
+```
+
+2. Jalankan server production:
+
+```bash
+npm start
+```
+
+## Kontribusi
+
+Kontribusi untuk meningkatkan aplikasi ini sangat diterima. Berikut adalah beberapa area yang dapat ditingkatkan:
+
+- Penambahan fitur baru yang relevan dengan pengguna Indonesia
+- Peningkatan terjemahan dan lokalisasi
+- Optimasi performa
+- Perbaikan bug
+
+Silakan buat pull request atau buka issue untuk diskusi lebih lanjut.
