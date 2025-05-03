@@ -65,7 +65,7 @@ export default function useMediaUpload() {
     if (isUploading) {
       toast({
         variant: "destructive",
-        description: "Please wait for the current upload to finish.",
+        description: "Mohon tunggu hingga unggahan saat ini selesai.",
       });
       return;
     }
@@ -73,7 +73,8 @@ export default function useMediaUpload() {
     if (attachments.length + files.length > 5) {
       toast({
         variant: "destructive",
-        description: "You can only upload up to 5 attachments per post.",
+        description:
+          "Anda hanya dapat mengunggah maksimal 5 lampiran per postingan.",
       });
       return;
     }

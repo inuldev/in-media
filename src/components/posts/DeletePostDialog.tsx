@@ -34,10 +34,10 @@ export default function DeletePostDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete post?</DialogTitle>
+          <DialogTitle>Hapus postingan?</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this post? This action cannot be
-            undone.
+            Apakah Anda yakin ingin menghapus postingan ini? Tindakan ini tidak
+            dapat dibatalkan.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -46,14 +46,14 @@ export default function DeletePostDialog({
             onClick={() => mutation.mutate(post.id, { onSuccess: onClose })}
             loading={mutation.isPending}
           >
-            Delete
+            Hapus
           </LoadingButton>
           <Button
             variant="outline"
             onClick={onClose}
             disabled={mutation.isPending}
           >
-            Cancel
+            Batal
           </Button>
         </DialogFooter>
       </DialogContent>

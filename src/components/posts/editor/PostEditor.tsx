@@ -44,7 +44,7 @@ export default function PostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: "What's on your mind?",
+        placeholder: "Apa yang sedang Anda pikirkan?",
       }),
     ],
     immediatelyRender: false,
@@ -116,7 +116,7 @@ export default function PostEditor() {
           disabled={!input.trim() || isUploading}
           className="min-w-20"
         >
-          Post
+          Kirim
         </LoadingButton>
       </div>
     </div>

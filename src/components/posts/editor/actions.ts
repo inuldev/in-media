@@ -11,7 +11,7 @@ export async function submitPost(input: {
 }) {
   const { user } = await validateRequest();
 
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error("Tidak diizinkan");
 
   const { content, mediaIds } = createPostSchema.parse(input);
 

@@ -43,16 +43,16 @@ export default function Comments({ post }: CommentsProps) {
           disabled={isFetching}
           onClick={() => fetchNextPage()}
         >
-          Load previous comments
+          Muat komentar sebelumnya
         </Button>
       )}
       {status === "pending" && <Loader2 className="mx-auto animate-spin" />}
       {status === "success" && !comments.length && (
-        <p className="text-center text-muted-foreground">No comments yet.</p>
+        <p className="text-center text-muted-foreground">Belum ada komentar.</p>
       )}
       {status === "error" && (
         <p className="text-center text-destructive">
-          An error occurred while loading comments.
+          Terjadi kesalahan saat memuat komentar.
         </p>
       )}
       <div className="divide-y">

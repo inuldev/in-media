@@ -7,7 +7,7 @@ export async function GET() {
     const { user } = await validateRequest();
 
     if (!user) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ error: "Tidak diizinkan" }, { status: 401 });
     }
 
     const { total_unread_count } = await streamServerClient.getUnreadCount(
@@ -21,6 +21,9 @@ export async function GET() {
     return Response.json(data);
   } catch (error) {
     console.error(error);
-    return Response.json({ error: "Internal server error" }, { status: 500 });
+    return Response.json(
+      { error: "Terjadi kesalahan pada server" },
+      { status: 500 },
+    );
   }
 }
