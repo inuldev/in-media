@@ -28,6 +28,8 @@ export default function ForYouFeed() {
         .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+    refetchOnMount: true, // Mengaktifkan refetch saat pertama kali memuat
+    refetchOnWindowFocus: true, // Mengaktifkan refetch saat jendela mendapatkan fokus kembali
   });
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];

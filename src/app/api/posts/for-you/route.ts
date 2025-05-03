@@ -7,13 +7,12 @@ import { getPostDataInclude, PostsPage } from "@/lib/types";
 export async function GET(req: NextRequest) {
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-
     const pageSize = 10;
 
     const { user } = await validateRequest();
 
     if (!user) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ error: "Tidak diizinkan" }, { status: 401 });
     }
 
     const posts = await prisma.post.findMany({
@@ -33,6 +32,9 @@ export async function GET(req: NextRequest) {
     return Response.json(data);
   } catch (error) {
     console.error(error);
-    return Response.json({ error: "Internal server error" }, { status: 500 });
+    return Response.json(
+      { error: "Terjadi kesalahan pada server" },
+      { status: 500 },
+    );
   }
 }

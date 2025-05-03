@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     staleTimes: {
-      dynamic: 30,
+      dynamic: 30, // Kembali ke nilai default
     },
   },
   serverExternalPackages: ["@node-rs/argon2"],
@@ -23,6 +23,9 @@ const nextConfig = {
       },
     ];
   },
+  // Konfigurasi dasar
+  poweredByHeader: false,
+  compress: true,
 };
 
 export default nextConfig;

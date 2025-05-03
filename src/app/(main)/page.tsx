@@ -1,8 +1,12 @@
-import PostEditor from "@/components/posts/editor/PostEditor";
+import { Suspense } from "react";
+
 import TrendsSidebar from "@/components/TrendsSidebar";
+import PostEditor from "@/components/posts/editor/PostEditor";
+import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import FollowingFeed from "./FollowingFeed";
+
 import ForYouFeed from "./ForYouFeed";
+import FollowingFeed from "./FollowingFeed";
 
 export default function Home() {
   return (
@@ -15,10 +19,14 @@ export default function Home() {
             <TabsTrigger value="following">Mengikuti</TabsTrigger>
           </TabsList>
           <TabsContent value="for-you">
-            <ForYouFeed />
+            <Suspense fallback={<PostsLoadingSkeleton />}>
+              <ForYouFeed />
+            </Suspense>
           </TabsContent>
           <TabsContent value="following">
-            <FollowingFeed />
+            <Suspense fallback={<PostsLoadingSkeleton />}>
+              <FollowingFeed />
+            </Suspense>
           </TabsContent>
         </Tabs>
       </div>

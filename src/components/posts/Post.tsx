@@ -1,20 +1,21 @@
 "use client";
 
-import { MessageSquare } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Media } from "@prisma/client";
+import { MessageSquare } from "lucide-react";
 
-import { useSession } from "@/app/(main)/SessionProvider";
 import { PostData } from "@/lib/types";
 import { cn, formatRelativeDate } from "@/lib/utils";
-import Comments from "../comments/Comments";
+import { useSession } from "@/app/(main)/SessionProvider";
+
 import Linkify from "../Linkify";
+import LikeButton from "./LikeButton";
 import UserAvatar from "../UserAvatar";
 import UserTooltip from "../UserTooltip";
+import Comments from "../comments/Comments";
 import BookmarkButton from "./BookmarkButton";
-import LikeButton from "./LikeButton";
 import PostMoreButton from "./PostMoreButton";
 
 interface PostProps {
@@ -157,7 +158,7 @@ function CommentButton({ post, onClick }: CommentButtonProps) {
       <MessageSquare className="size-5" />
       <span className="text-sm font-medium tabular-nums">
         {post._count.comments}{" "}
-        <span className="hidden sm:inline">comments</span>
+        <span className="hidden sm:inline">komentar</span>
       </span>
     </button>
   );
