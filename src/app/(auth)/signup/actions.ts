@@ -37,7 +37,7 @@ export async function signUp(
 
     if (existingUsername) {
       return {
-        error: "Username already taken",
+        error: "Nama pengguna sudah digunakan",
       };
     }
 
@@ -52,7 +52,7 @@ export async function signUp(
 
     if (existingEmail) {
       return {
-        error: "Email already taken",
+        error: "Email sudah digunakan",
       };
     }
 
@@ -86,7 +86,7 @@ export async function signUp(
     if (isRedirectError(error)) throw error;
     console.error(error);
     return {
-      error: "Something went wrong. Please try again.",
+      error: "Terjadi kesalahan. Silakan coba lagi.",
     };
   }
 }

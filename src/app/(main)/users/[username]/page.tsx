@@ -56,7 +56,7 @@ export default async function Page({ params: { username } }: PageProps) {
   if (!loggedInUser) {
     return (
       <p className="text-destructive">
-        You&apos;re not authorized to view this page.
+        Anda tidak memiliki izin untuk melihat halaman ini.
       </p>
     );
   }
@@ -69,7 +69,7 @@ export default async function Page({ params: { username } }: PageProps) {
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
         <div className="rounded-2xl bg-card p-5 shadow-sm">
           <h2 className="text-center text-2xl font-bold">
-            {user.displayName}&apos;s posts
+            Postingan {user.displayName}
           </h2>
         </div>
         <UserPosts userId={user.id} />
@@ -106,12 +106,12 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
             <div className="text-muted-foreground">@{user.username}</div>
           </div>
           <div>
-            Member since{" "}
+            Bergabung sejak{" "}
             {formatDate(user.createdAt, "d MMM, yyyy", { locale: id })}
           </div>
           <div className="flex items-center gap-3">
             <span>
-              Posts:{" "}
+              Postingan:{" "}
               <span className="font-semibold">
                 {formatNumber(user._count.posts)}
               </span>

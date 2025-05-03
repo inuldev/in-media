@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-const requiredString = z.string().trim().min(1, "Required");
+const requiredString = z.string().trim().min(1, "Wajib diisi");
 
 export const signUpSchema = z.object({
-  email: requiredString.email("Invalid email address"),
+  email: requiredString.email("Alamat email tidak valid"),
   username: requiredString.regex(
     /^[a-zA-Z0-9_-]+$/,
-    "Only letters, numbers, - and _ allowed",
+    "Hanya huruf, angka, - dan _ yang diperbolehkan",
   ),
-  password: requiredString.min(8, "Must be at least 8 characters"),
+  password: requiredString.min(8, "Minimal 8 karakter"),
 });
 
 export type SignUpValues = z.infer<typeof signUpSchema>;
@@ -22,12 +22,12 @@ export type LoginValues = z.infer<typeof loginSchema>;
 
 export const createPostSchema = z.object({
   content: requiredString,
-  mediaIds: z.array(z.string()).max(5, "Cannot have more than 5 attachments"),
+  mediaIds: z.array(z.string()).max(5, "Tidak boleh lebih dari 5 lampiran"),
 });
 
 export const updateUserProfileSchema = z.object({
   displayName: requiredString,
-  bio: z.string().max(1000, "Must be at most 1000 characters"),
+  bio: z.string().max(1000, "Maksimal 1000 karakter"),
 });
 
 export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;

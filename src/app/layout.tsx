@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | inMedia",
     default: "inMedia",
   },
-  description: "The social media app",
+  description: "Aplikasi media sosial Indonesia",
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
         <ReactQueryProvider>

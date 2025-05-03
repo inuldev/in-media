@@ -48,9 +48,9 @@ export default function LoginForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Nama Pengguna</FormLabel>
               <FormControl>
-                <Input placeholder="Username" {...field} />
+                <Input placeholder="Nama Pengguna" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,16 +61,16 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Kata Sandi</FormLabel>
               <FormControl>
-                <PasswordInput placeholder="Password" {...field} />
+                <PasswordInput placeholder="Kata Sandi" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          Log in
+          Masuk
         </LoadingButton>
       </form>
     </Form>

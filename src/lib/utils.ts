@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { type ClassValue, clsx } from "clsx";
-import { formatDistanceToNowStrict, formatDate } from "date-fns";
+import { formatDistanceToNowStrict, format } from "date-fns";
 import { id } from "date-fns/locale"; // Import the Indonesian locale
 
 export function cn(...inputs: ClassValue[]) {
@@ -13,9 +13,9 @@ export function formatRelativeDate(from: Date) {
     return formatDistanceToNowStrict(from, { addSuffix: true, locale: id });
   } else {
     if (currentDate.getFullYear() === from.getFullYear()) {
-      return formatDate(from, "d MMM", { locale: id });
+      return format(from, "d MMM", { locale: id });
     } else {
-      return formatDate(from, "d MMM, yyyy", { locale: id });
+      return format(from, "d MMM, yyyy", { locale: id });
     }
   }
 }

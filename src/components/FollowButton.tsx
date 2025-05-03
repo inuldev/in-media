@@ -49,7 +49,7 @@ export default function FollowButton({
       console.error(error);
       toast({
         variant: "destructive",
-        description: "Something went wrong. Please try again.",
+        description: "Terjadi kesalahan. Silakan coba lagi.",
       });
     },
   });
@@ -59,7 +59,7 @@ export default function FollowButton({
       variant={data.isFollowedByUser ? "secondary" : "default"}
       onClick={() => mutate()}
     >
-      {data.isFollowedByUser ? "Unfollow" : "Follow"}
+      {data.isFollowedByUser ? "Berhenti Mengikuti" : "Ikuti"}
     </Button>
   );
 }
