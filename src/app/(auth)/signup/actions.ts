@@ -124,9 +124,40 @@ export async function signUp(
     }
   } catch (error) {
     if (isRedirectError(error)) throw error;
-    console.error(error);
+
+    // Log error dengan detail lebih lengkap
+    console.error("Signup error:", error);
+
+    // Berikan pesan error yang lebih spesifik jika memungkinkan
+    let errorMessage = "Terjadi kesalahan. Silakan coba lagi.";
+
+    if (error instanceof Error) {
+      // Tambahkan informasi error untuk debugging
+      console.error(`Error name: ${error.name}, message: ${error.message}`);
+
+      // Berikan pesan yang lebih spesifik berdasarkan jenis error
+      if (
+        error.message.includes("database") ||
+        error.message.includes("prisma")
+      ) {
+        errorMessage = "Terjadi kesalahan database. Silakan coba lagi nanti.";
+      } else if (
+        error.message.includes("hash") ||
+        error.message.includes("argon2")
+      ) {
+        errorMessage =
+          "Terjadi kesalahan saat memproses kata sandi. Silakan coba kata sandi yang berbeda.";
+      } else if (
+        error.message.includes("stream") ||
+        error.message.includes("chat")
+      ) {
+        errorMessage =
+          "Terjadi kesalahan pada layanan chat. Akun Anda tetap dibuat, silakan coba masuk.";
+      }
+    }
+
     return {
-      error: "Terjadi kesalahan. Silakan coba lagi.",
+      error: errorMessage,
     };
   }
 }

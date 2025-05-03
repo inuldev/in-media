@@ -30,12 +30,20 @@ export async function login(
       };
     }
 
-    const validPassword = await verify(existingUser.passwordHash, password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    });
+    let validPassword = false;
+    try {
+      validPassword = await verify(existingUser.passwordHash, password, {
+        memoryCost: 12288, // Mengurangi memory cost untuk menghindari error di lingkungan terbatas
+        timeCost: 2,
+        outputLen: 32,
+        parallelism: 1,
+      });
+    } catch (verifyError) {
+      console.error("Password verification error:", verifyError);
+      return {
+        error: "Gagal memverifikasi kata sandi. Silakan coba lagi.",
+      };
+    }
 
     if (!validPassword) {
       return {
@@ -54,9 +62,40 @@ export async function login(
     return redirect("/");
   } catch (error) {
     if (isRedirectError(error)) throw error;
-    console.error(error);
+
+    // Log error dengan detail lebih lengkap
+    console.error("Login error:", error);
+
+    // Berikan pesan error yang lebih spesifik jika memungkinkan
+    let errorMessage = "Terjadi kesalahan. Silakan coba lagi.";
+
+    if (error instanceof Error) {
+      // Tambahkan informasi error untuk debugging
+      console.error(`Error name: ${error.name}, message: ${error.message}`);
+
+      // Berikan pesan yang lebih spesifik berdasarkan jenis error
+      if (
+        error.message.includes("database") ||
+        error.message.includes("prisma")
+      ) {
+        errorMessage = "Terjadi kesalahan database. Silakan coba lagi nanti.";
+      } else if (
+        error.message.includes("verify") ||
+        error.message.includes("argon2")
+      ) {
+        errorMessage =
+          "Terjadi kesalahan saat memverifikasi kata sandi. Silakan coba lagi.";
+      } else if (
+        error.message.includes("parse") ||
+        error.message.includes("validation")
+      ) {
+        errorMessage =
+          "Data tidak valid. Pastikan semua field diisi dengan benar.";
+      }
+    }
+
     return {
-      error: "Terjadi kesalahan. Silakan coba lagi.",
+      error: errorMessage,
     };
   }
 }
