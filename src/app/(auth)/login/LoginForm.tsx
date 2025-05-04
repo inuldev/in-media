@@ -53,12 +53,12 @@ export default function LoginForm() {
         setError("Nama pengguna atau kata sandi salah");
       } else if (result?.url) {
         console.log("Login successful, redirecting to:", result.url);
-        router.push(result.url);
-        router.refresh();
+        // Gunakan window.location untuk hard redirect yang lebih kuat
+        window.location.href = result.url;
       } else {
         console.log("Login successful, redirecting to home");
-        router.push("/");
-        router.refresh();
+        // Gunakan window.location untuk hard redirect yang lebih kuat
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Login exception:", error);

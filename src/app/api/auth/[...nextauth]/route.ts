@@ -85,7 +85,9 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET || "rahasia-aplikasi-inMedia",
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    "rahasia-aplikasi-inMedia-yang-sangat-aman-dan-panjang-untuk-memastikan-keamanan",
   debug: process.env.NODE_ENV === "development",
 });
 

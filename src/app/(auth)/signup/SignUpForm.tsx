@@ -82,9 +82,14 @@ export default function SignUpForm() {
           setError(
             "Pendaftaran berhasil tetapi gagal masuk otomatis. Silakan coba masuk secara manual.",
           );
+        } else if (result?.url) {
+          console.log("Auto-login successful, redirecting to:", result.url);
+          // Gunakan window.location untuk hard redirect yang lebih kuat
+          window.location.href = result.url;
         } else {
-          router.push("/");
-          router.refresh();
+          console.log("Auto-login successful, redirecting to home");
+          // Gunakan window.location untuk hard redirect yang lebih kuat
+          window.location.href = "/";
         }
       } catch (loginError) {
         console.error("Auto-login exception:", loginError);
