@@ -39,35 +39,58 @@ export default function SignUpForm() {
 
     try {
       // Daftarkan pengguna baru
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      try {
+        console.log("Submitting registration data:", {
+          ...values,
+          password: "[REDACTED]",
+        });
 
-      const data = await response.json();
+        const response = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
 
-      if (!response.ok) {
-        setError(data.error || "Terjadi kesalahan saat pendaftaran");
+        const data = await response.json();
+        console.log("Registration response:", data);
+
+        if (!response.ok) {
+          setError(data.error || "Terjadi kesalahan saat pendaftaran");
+          return;
+        }
+      } catch (fetchError) {
+        console.error("Registration fetch error:", fetchError);
+        setError("Gagal menghubungi server. Periksa koneksi internet Anda.");
         return;
       }
 
       // Login otomatis setelah pendaftaran berhasil
-      const result = await signIn("credentials", {
-        username: values.username,
-        password: values.password,
-        redirect: false,
-      });
+      try {
+        console.log("Attempting auto-login after registration");
+        const result = await signIn("credentials", {
+          username: values.username,
+          password: values.password,
+          redirect: false,
+        });
 
-      if (result?.error) {
+        console.log("Auto-login result:", result);
+
+        if (result?.error) {
+          console.error("Auto-login error:", result.error);
+          setError(
+            "Pendaftaran berhasil tetapi gagal masuk otomatis. Silakan coba masuk secara manual.",
+          );
+        } else {
+          router.push("/");
+          router.refresh();
+        }
+      } catch (loginError) {
+        console.error("Auto-login exception:", loginError);
         setError(
           "Pendaftaran berhasil tetapi gagal masuk otomatis. Silakan coba masuk secara manual.",
         );
-      } else {
-        router.push("/");
-        router.refresh();
       }
     } catch (error) {
       console.error("Registration error:", error);

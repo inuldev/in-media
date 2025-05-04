@@ -37,21 +37,32 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
+      console.log("Attempting login with username:", values.username);
+
       const result = await signIn("credentials", {
         username: values.username,
         password: values.password,
         redirect: false,
+        callbackUrl: "/",
       });
 
+      console.log("Login result:", result);
+
       if (result?.error) {
+        console.error("Login error from NextAuth:", result.error);
         setError("Nama pengguna atau kata sandi salah");
+      } else if (result?.url) {
+        console.log("Login successful, redirecting to:", result.url);
+        router.push(result.url);
+        router.refresh();
       } else {
+        console.log("Login successful, redirecting to home");
         router.push("/");
         router.refresh();
       }
     } catch (error) {
+      console.error("Login exception:", error);
       setError("Terjadi kesalahan. Silakan coba lagi.");
-      console.error("Login error:", error);
     } finally {
       setIsLoading(false);
     }
