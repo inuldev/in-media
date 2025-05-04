@@ -104,11 +104,8 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
-  secret:
-    process.env.NEXTAUTH_SECRET ||
-    "rahasia-aplikasi-inMedia-yang-sangat-aman-dan-panjang-untuk-memastikan-keamanan",
-  debug: true, // Aktifkan debug untuk melihat log lebih detail
-  // Tambahkan konfigurasi CORS
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
   cookies: {
     sessionToken: {
       name: `next-auth.session-token`,
