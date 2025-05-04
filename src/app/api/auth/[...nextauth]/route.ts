@@ -6,12 +6,9 @@ import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-// Pastikan URL callback yang digunakan sesuai dengan yang terdaftar di Google Cloud Console
-const callbackUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}/api/auth/callback/google`
-  : `${process.env.NEXTAUTH_URL}/api/auth/callback/google`;
-
-console.log("Using callback URL:", callbackUrl);
+// Logging untuk debugging
+console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+console.log("VERCEL_URL:", process.env.VERCEL_URL);
 
 const handler = NextAuth({
   providers: [
@@ -25,8 +22,6 @@ const handler = NextAuth({
           response_type: "code",
         },
       },
-      // Gunakan URL callback yang eksplisit
-      callbackUrl: callbackUrl,
       profile(profile) {
         return {
           id: profile.sub,
