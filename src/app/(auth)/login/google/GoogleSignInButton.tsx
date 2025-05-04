@@ -1,16 +1,38 @@
+"use client";
+
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function GoogleSignInButton() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      await signIn("google", { callbackUrl: "/" });
+    } catch (error) {
+      console.error("Google sign in error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Button
       variant="outline"
       className="bg-white text-black hover:bg-gray-100 hover:text-black"
-      asChild
+      onClick={handleGoogleSignIn}
+      disabled={isLoading}
     >
-      <a href="/login/google" className="flex w-full items-center gap-2">
-        <GoogleIcon />
+      <div className="flex w-full items-center justify-center gap-2">
+        {isLoading ? (
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
+        ) : (
+          <GoogleIcon />
+        )}
         Masuk dengan Google
-      </a>
+      </div>
     </Button>
   );
 }

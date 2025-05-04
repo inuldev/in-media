@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import localFont from "next/font/local";
 import { fileRouter } from "./api/uploadthing/core";
 import ReactQueryProvider from "./ReactQueryProvider";
+import AuthProvider from "./AuthProvider";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -35,16 +36,18 @@ export default function RootLayout({
     <html lang="id" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
-        <ReactQueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </ReactQueryProvider>
+        <AuthProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </ReactQueryProvider>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>

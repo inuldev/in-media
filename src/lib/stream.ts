@@ -6,6 +6,31 @@ const mockClient = {
     console.log("Mock Stream Chat: upsertUser called");
     return { users: {} };
   },
+  getUnreadCount: async () => {
+    console.log("Mock Stream Chat: getUnreadCount called");
+    return { total_unread_count: 0 };
+  },
+  queryChannels: async () => {
+    console.log("Mock Stream Chat: queryChannels called");
+    return [];
+  },
+  disconnectUser: async () => {
+    console.log("Mock Stream Chat: disconnectUser called");
+    return {};
+  },
+  connectUser: async () => {
+    console.log("Mock Stream Chat: connectUser called");
+    return {};
+  },
+  partialUpdateUser: async (data: any) => {
+    console.log("Mock Stream Chat: partialUpdateUser called", data);
+    return { users: { [data.id]: { id: data.id, ...data.set } } };
+  },
+  createToken: (userId: string, expiresAt: number, issuedAt: number) => {
+    console.log("Mock Stream Chat: createToken called", userId);
+    // Return a dummy token
+    return "mock_token_" + userId + "_" + Date.now();
+  },
   // Tambahkan method lain yang mungkin digunakan
 };
 

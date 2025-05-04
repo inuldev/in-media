@@ -10,12 +10,10 @@ export async function GET() {
       return Response.json({ error: "Tidak diizinkan" }, { status: 401 });
     }
 
-    const { total_unread_count } = await streamServerClient.getUnreadCount(
-      user.id,
-    );
-
+    // Nonaktifkan fitur unread messages count untuk sementara
+    // Ini akan menghindari error di production
     const data: MessageCountInfo = {
-      unreadCount: total_unread_count,
+      unreadCount: 0,
     };
 
     return Response.json(data);

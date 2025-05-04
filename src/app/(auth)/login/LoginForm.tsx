@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import LoadingButton from "@/components/LoadingButton";
 import { PasswordInput } from "@/components/PasswordInput";
 import { loginSchema, LoginValues } from "@/lib/validation";
-import { login } from "./actions";
 import {
   Form,
   FormControl,
@@ -20,8 +21,8 @@ import { Input } from "@/components/ui/input";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>();
-
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -33,10 +34,27 @@ export default function LoginForm() {
 
   async function onSubmit(values: LoginValues) {
     setError(undefined);
-    startTransition(async () => {
-      const { error } = await login(values);
-      if (error) setError(error);
-    });
+    setIsLoading(true);
+
+    try {
+      const result = await signIn("credentials", {
+        username: values.username,
+        password: values.password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError("Nama pengguna atau kata sandi salah");
+      } else {
+        router.push("/");
+        router.refresh();
+      }
+    } catch (error) {
+      setError("Terjadi kesalahan. Silakan coba lagi.");
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -69,7 +87,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <LoadingButton loading={isPending} type="submit" className="w-full">
+        <LoadingButton loading={isLoading} type="submit" className="w-full">
           Masuk
         </LoadingButton>
       </form>

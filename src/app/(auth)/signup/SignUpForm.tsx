@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import LoadingButton from "@/components/LoadingButton";
 import { PasswordInput } from "@/components/PasswordInput";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
-import { signUp } from "./actions";
 import {
   Form,
   FormControl,
@@ -20,8 +21,8 @@ import { Input } from "@/components/ui/input";
 
 export default function SignUpForm() {
   const [error, setError] = useState<string>();
-
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
@@ -34,10 +35,46 @@ export default function SignUpForm() {
 
   async function onSubmit(values: SignUpValues) {
     setError(undefined);
-    startTransition(async () => {
-      const { error } = await signUp(values);
-      if (error) setError(error);
-    });
+    setIsLoading(true);
+
+    try {
+      // Daftarkan pengguna baru
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Terjadi kesalahan saat pendaftaran");
+        return;
+      }
+
+      // Login otomatis setelah pendaftaran berhasil
+      const result = await signIn("credentials", {
+        username: values.username,
+        password: values.password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError(
+          "Pendaftaran berhasil tetapi gagal masuk otomatis. Silakan coba masuk secara manual.",
+        );
+      } else {
+        router.push("/");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError("Terjadi kesalahan. Silakan coba lagi.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -83,7 +120,7 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <LoadingButton loading={isPending} type="submit" className="w-full">
+        <LoadingButton loading={isLoading} type="submit" className="w-full">
           Daftar ke inMedia
         </LoadingButton>
       </form>

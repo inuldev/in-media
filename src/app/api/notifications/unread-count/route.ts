@@ -1,18 +1,18 @@
-import { validateRequest } from "@/auth";
+import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
 import { NotificationCountInfo } from "@/lib/types";
 
 export async function GET() {
   try {
-    const { user } = await validateRequest();
+    const session = await getServerSession();
 
-    if (!user) {
+    if (!session?.user?.id) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const unreadCount = await prisma.notification.count({
       where: {
-        recipientId: user.id,
+        recipientId: session.user.id,
         read: false,
       },
     });
