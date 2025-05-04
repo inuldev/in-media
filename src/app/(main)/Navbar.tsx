@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import UserButton from "@/components/UserButton";
+import UserButtonNew from "@/components/UserButtonNew";
 import SearchField from "@/components/SearchField";
 
 export default function Navbar() {
@@ -11,7 +11,7 @@ export default function Navbar() {
           inMedia
         </Link>
         <SearchField />
-        <UserButton className="sm:ms-auto" />
+        <UserButtonNew className="sm:ms-auto" />
       </div>
     </header>
   );
