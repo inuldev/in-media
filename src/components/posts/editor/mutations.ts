@@ -5,7 +5,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
-import { useSession } from "@/app/(main)/SessionProvider";
+import { useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { PostsPage } from "@/lib/types";
 import { submitPost } from "./actions";
@@ -15,17 +15,19 @@ export function useSubmitPostMutation() {
 
   const queryClient = useQueryClient();
 
-  const { user } = useSession();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const mutation = useMutation({
     mutationFn: submitPost,
     onSuccess: async (newPost) => {
       const queryFilter = {
         queryKey: ["post-feed"],
-        predicate(query) {
-          return (
+        predicate: (query) => {
+          return !!(
             query.queryKey.includes("for-you") ||
-            (query.queryKey.includes("user-posts") &&
+            (user &&
+              query.queryKey.includes("user-posts") &&
               query.queryKey.includes(user.id))
           );
         },
@@ -36,7 +38,9 @@ export function useSubmitPostMutation() {
       queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
         queryFilter,
         (oldData) => {
-          const firstPage = oldData?.pages[0];
+          if (!oldData) return oldData;
+
+          const firstPage = oldData.pages[0];
 
           if (firstPage) {
             return {
@@ -50,13 +54,19 @@ export function useSubmitPostMutation() {
               ],
             };
           }
+
+          return oldData;
         },
       );
 
       queryClient.invalidateQueries({
         queryKey: queryFilter.queryKey,
-        predicate(query) {
-          return queryFilter.predicate(query) && !query.state.data;
+        predicate: (query) => {
+          return (
+            queryFilter.predicate &&
+            queryFilter.predicate(query) &&
+            !query.state.data
+          );
         },
       });
 

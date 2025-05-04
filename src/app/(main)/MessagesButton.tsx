@@ -13,13 +13,8 @@ interface MessagesButtonProps {
 }
 
 export default function MessagesButton({ initialState }: MessagesButtonProps) {
-  const { data } = useQuery({
-    queryKey: ["unread-messages-count"],
-    queryFn: () =>
-      kyInstance.get("/api/messages/unread-count").json<MessageCountInfo>(),
-    initialData: initialState,
-    refetchInterval: 60 * 1000,
-  });
+  // Gunakan initialState langsung tanpa query untuk sementara
+  const data = initialState;
 
   return (
     <Button

@@ -5,8 +5,7 @@ import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { logout } from "@/app/(auth)/actions";
-import { useSession } from "@/app/(main)/SessionProvider";
+import { signOut, useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import UserAvatar from "./UserAvatar";
 import {
@@ -27,23 +26,26 @@ interface UserButtonProps {
 }
 
 export default function UserButton({ className }: UserButtonProps) {
-  const { user } = useSession();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const { theme, setTheme } = useTheme();
 
   const queryClient = useQueryClient();
 
+  if (!user) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className={cn("flex-none rounded-full", className)}>
-          <UserAvatar avatarUrl={user.avatarUrl} size={40} />
+          <UserAvatar avatarUrl={user.image} size={40} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Masuk sebagai @{user.username}</DropdownMenuLabel>
+        <DropdownMenuLabel>Masuk sebagai {user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`/users/${user.username}`}>
+        <Link href={`/users/${user.id}`}>
           <DropdownMenuItem>
             <UserIcon className="mr-2 size-4" />
             Profil
@@ -78,7 +80,7 @@ export default function UserButton({ className }: UserButtonProps) {
         <DropdownMenuItem
           onClick={() => {
             queryClient.clear();
-            logout();
+            signOut({ callbackUrl: "/login" });
           }}
         >
           <LogOutIcon className="mr-2 size-4" />

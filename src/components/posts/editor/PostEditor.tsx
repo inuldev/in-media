@@ -8,7 +8,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useDropzone } from "@uploadthing/react";
 
-import { useSession } from "@/app/(main)/SessionProvider";
+import { useSession } from "next-auth/react";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/UserAvatar";
@@ -18,7 +18,8 @@ import useMediaUpload, { Attachment } from "./useMediaUpload";
 import "./styles.css";
 
 export default function PostEditor() {
-  const { user } = useSession();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const mutation = useSubmitPostMutation();
 
@@ -80,7 +81,7 @@ export default function PostEditor() {
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex gap-5">
-        <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
+        <UserAvatar avatarUrl={user?.image} className="hidden sm:inline" />
         <div {...rootProps} className="w-full">
           <EditorContent
             editor={editor}

@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 import NewChatDialog from "./NewChatDialog";
-import { useSession } from "../SessionProvider";
+import { useSession } from "next-auth/react";
 
 interface ChatSidebarProps {
   open: boolean;
@@ -20,7 +20,8 @@ interface ChatSidebarProps {
 }
 
 export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
-  const { user } = useSession();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const queryClient = useQueryClient();
 
@@ -53,24 +54,26 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
       )}
     >
       <MenuHeader onClose={onClose} />
-      <ChannelList
-        filters={{
-          type: "messaging",
-          members: { $in: [user.id] },
-        }}
-        showChannelSearch
-        options={{ state: true, presence: true, limit: 8 }}
-        sort={{ last_message_at: -1 }}
-        additionalChannelSearchProps={{
-          searchForChannels: true,
-          searchQueryParams: {
-            channelFilters: {
-              filters: { members: { $in: [user.id] } },
+      {user && (
+        <ChannelList
+          filters={{
+            type: "messaging",
+            members: { $in: [user.id] },
+          }}
+          showChannelSearch
+          options={{ state: true, presence: true, limit: 8 }}
+          sort={{ last_message_at: -1 }}
+          additionalChannelSearchProps={{
+            searchForChannels: true,
+            searchQueryParams: {
+              channelFilters: {
+                filters: { members: { $in: [user.id] } },
+              },
             },
-          },
-        }}
-        Preview={ChannelPreviewCustom}
-      />
+          }}
+          Preview={ChannelPreviewCustom}
+        />
+      )}
     </div>
   );
 }

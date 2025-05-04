@@ -15,15 +15,8 @@ interface NotificationsButtonProps {
 export default function NotificationsButton({
   initialState,
 }: NotificationsButtonProps) {
-  const { data } = useQuery({
-    queryKey: ["unread-notification-count"],
-    queryFn: () =>
-      kyInstance
-        .get("/api/notifications/unread-count")
-        .json<NotificationCountInfo>(),
-    initialData: initialState,
-    refetchInterval: 60 * 1000,
-  });
+  // Gunakan initialState langsung tanpa query untuk sementara
+  const data = initialState;
 
   return (
     <Button

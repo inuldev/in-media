@@ -2,22 +2,25 @@ import { StreamChat } from "stream-chat";
 import { useEffect, useState } from "react";
 
 import kyInstance from "@/lib/ky";
-import { useSession } from "../SessionProvider";
+import { useSession } from "next-auth/react";
 
 export default function useInitializeChatClient() {
-  const { user } = useSession();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [chatClient, setChatClient] = useState<StreamChat | null>(null);
 
   useEffect(() => {
+    if (!user) return;
+
     const client = StreamChat.getInstance(process.env.NEXT_PUBLIC_STREAM_KEY!);
 
     client
       .connectUser(
         {
           id: user.id,
-          username: user.username,
-          name: user.displayName,
-          image: user.avatarUrl,
+          username: user.name || user.email || user.id,
+          name: user.name || "User",
+          image: user.image || undefined,
         },
         async () =>
           kyInstance
@@ -35,7 +38,7 @@ export default function useInitializeChatClient() {
         .catch((error) => console.error("Failed to disconnect user", error))
         .then(() => console.log("Connection closed"));
     };
-  }, [user.id, user.username, user.displayName, user.avatarUrl]);
+  }, [user?.id, user?.name, user?.email, user?.image]);
 
   return chatClient;
 }

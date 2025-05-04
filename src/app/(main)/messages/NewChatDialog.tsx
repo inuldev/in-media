@@ -17,7 +17,7 @@ import useDebounce from "@/hooks/useDebounce";
 import UserAvatar from "@/components/UserAvatar";
 import LoadingButton from "@/components/LoadingButton";
 
-import { useSession } from "../SessionProvider";
+import { useSession } from "next-auth/react";
 
 interface NewChatDialogProps {
   onOpenChange: (open: boolean) => void;
@@ -32,7 +32,8 @@ export default function NewChatDialog({
 
   const { toast } = useToast();
 
-  const { user: loggedInUser } = useSession();
+  const { data: session } = useSession();
+  const loggedInUser = session?.user;
 
   const [searchInput, setSearchInput] = useState("");
   const searchInputDebounced = useDebounce(searchInput);
@@ -43,8 +44,11 @@ export default function NewChatDialog({
 
   const { data, isFetching, isError, isSuccess } = useQuery({
     queryKey: ["stream-users", searchInputDebounced],
-    queryFn: async () =>
-      client.queryUsers(
+    queryFn: async () => {
+      if (!loggedInUser) {
+        throw new Error("User not authenticated");
+      }
+      return client.queryUsers(
         {
           id: { $ne: loggedInUser.id },
           role: { $ne: "admin" },
@@ -59,16 +63,21 @@ export default function NewChatDialog({
         },
         { name: 1, username: 1 },
         { limit: 15 },
-      ),
+      );
+    },
+    enabled: !!loggedInUser,
   });
 
   const mutation = useMutation({
     mutationFn: async () => {
+      if (!loggedInUser) {
+        throw new Error("User not authenticated");
+      }
       const channel = client.channel("messaging", {
         members: [loggedInUser.id, ...selectedUsers.map((u) => u.id)],
         name:
           selectedUsers.length > 1
-            ? loggedInUser.displayName +
+            ? (loggedInUser.name || "User") +
               ", " +
               selectedUsers.map((u) => u.name).join(", ")
             : undefined,
