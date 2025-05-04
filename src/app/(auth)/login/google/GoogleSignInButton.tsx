@@ -10,6 +10,7 @@ export default function GoogleSignInButton() {
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
+      // Gunakan NextAuth.js untuk Google OAuth
       await signIn("google", { callbackUrl: "/" });
     } catch (error) {
       console.error("Google sign in error:", error);
