@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import signupImage from "@/assets/signup-image.jpg";
 
 import SignUpForm from "./SignUpForm";
+import GoogleSignInButton from "../login/google/GoogleSignInButton";
 
 export const metadata: Metadata = {
   title: "Daftar ke inMedia",
@@ -25,6 +26,12 @@ export default function Page() {
             </p>
           </div>
           <div className="space-y-5">
+            <GoogleSignInButton />
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-muted" />
+              <span>ATAU</span>
+              <div className="h-px flex-1 bg-muted" />
+            </div>
             <SignUpForm />
             <Link href="/login" className="block text-center hover:underline">
               Sudah punya akun?{" "}
