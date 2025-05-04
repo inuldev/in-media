@@ -10,10 +10,26 @@ export default function GoogleSignInButton() {
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
-      // Gunakan NextAuth.js untuk Google OAuth
-      await signIn("google", { callbackUrl: "/" });
+      // Gunakan NextAuth.js untuk Google OAuth dengan logging
+      console.log("Starting Google sign in process");
+
+      // Tambahkan parameter redirect=true untuk memastikan redirect terjadi
+      const result = await signIn("google", {
+        callbackUrl: "/",
+        redirect: true,
+      });
+
+      console.log("Google sign in result:", result);
+
+      // Jika tidak ada redirect otomatis, lakukan redirect manual
+      if (result && !result.error && result.url) {
+        window.location.href = result.url;
+      }
     } catch (error) {
       console.error("Google sign in error:", error);
+      alert(
+        "Gagal login dengan Google. Silakan coba lagi atau gunakan metode login lain.",
+      );
     } finally {
       setIsLoading(false);
     }

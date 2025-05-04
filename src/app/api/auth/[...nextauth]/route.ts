@@ -6,6 +6,13 @@ import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+// Pastikan URL callback yang digunakan sesuai dengan yang terdaftar di Google Cloud Console
+const callbackUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}/api/auth/callback/google`
+  : `${process.env.NEXTAUTH_URL}/api/auth/callback/google`;
+
+console.log("Using callback URL:", callbackUrl);
+
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -18,6 +25,8 @@ const handler = NextAuth({
           response_type: "code",
         },
       },
+      // Gunakan URL callback yang eksplisit
+      callbackUrl: callbackUrl,
       profile(profile) {
         return {
           id: profile.sub,
@@ -103,7 +112,19 @@ const handler = NextAuth({
   secret:
     process.env.NEXTAUTH_SECRET ||
     "rahasia-aplikasi-inMedia-yang-sangat-aman-dan-panjang-untuk-memastikan-keamanan",
-  debug: process.env.NODE_ENV === "development",
+  debug: true, // Aktifkan debug untuk melihat log lebih detail
+  // Tambahkan konfigurasi CORS
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
 });
 
 export const GET = handler;
