@@ -32,7 +32,7 @@ export default function UserMenu() {
           )}
         </Avatar>
         <span className="hidden text-sm font-medium lg:inline">
-          {user.name || user.username}
+          {user.name || "Pengguna"}
         </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
