@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-export const handler = NextAuth({
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -89,4 +89,5 @@ export const handler = NextAuth({
   debug: process.env.NODE_ENV === "development",
 });
 
-export { handler as GET, handler as POST };
+export const GET = handler;
+export const POST = handler;
