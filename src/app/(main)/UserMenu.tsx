@@ -38,7 +38,7 @@ export default function UserMenu() {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuItem asChild>
           <Link
-            href={`/users/${user.username}`}
+            href={`/users/${user.id}`}
             className="flex cursor-pointer items-center"
           >
             <User className="mr-2 h-4 w-4" />
@@ -47,7 +47,7 @@ export default function UserMenu() {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link
-            href={`/users/${user.username}/settings`}
+            href={`/users/${user.id}/settings`}
             className="flex cursor-pointer items-center"
           >
             <Settings className="mr-2 h-4 w-4" />

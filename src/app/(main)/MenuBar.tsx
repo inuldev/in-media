@@ -19,17 +19,8 @@ interface MenuBarProps {
 export default function MenuBar({ className }: MenuBarProps) {
   const { data: session, status } = useSession();
 
-  // Ambil jumlah notifikasi yang belum dibaca
-  const { data: notificationsData } = useQuery({
-    queryKey: ["unread-notifications-count"],
-    queryFn: () =>
-      kyInstance
-        .get("/api/notifications/unread-count")
-        .json<{ count: number }>(),
-    enabled: status === "authenticated",
-    initialData: { count: 0 },
-    refetchInterval: 30000, // Refresh setiap 30 detik
-  });
+  // Ambil jumlah notifikasi yang belum dibaca (sementara gunakan nilai statis)
+  const notificationsData = { count: 0 };
 
   // Untuk sementara, nonaktifkan fitur unread messages count
   const unreadMessagesCount = 0;

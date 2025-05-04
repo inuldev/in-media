@@ -1,25 +1,16 @@
 import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import * as bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 
-const authOptions: NextAuthOptions = {
+export const dynamic = "force-dynamic";
+
+export const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-          username: profile.email.split("@")[0], // Buat username dari email
-          displayName: profile.name,
-        };
-      },
     }),
     CredentialsProvider({
       name: "credentials",
@@ -32,51 +23,60 @@ const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = await prisma.user.findFirst({
-          where: {
-            username: {
-              equals: credentials.username,
-              mode: "insensitive",
+        try {
+          const user = await prisma.user.findFirst({
+            where: {
+              username: {
+                equals: credentials.username,
+                mode: "insensitive",
+              },
             },
-          },
-        });
+          });
 
-        if (!user || !user.passwordHash) {
+          if (!user || !user.passwordHash) {
+            return null;
+          }
+
+          const isValid = await bcrypt.compare(
+            credentials.password,
+            user.passwordHash,
+          );
+
+          if (!isValid) {
+            return null;
+          }
+
+          return {
+            id: user.id,
+            name: user.displayName || user.username,
+            email: user.email,
+            image: user.avatarUrl,
+          };
+        } catch (error) {
+          console.error("Auth error:", error);
           return null;
         }
-
-        const isValid = await bcrypt.compare(
-          credentials.password,
-          user.passwordHash,
-        );
-
-        if (!isValid) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          name: user.displayName,
-          email: user.email,
-          username: user.username,
-          image: user.avatarUrl,
-        };
       },
     }),
   ],
   callbacks: {
-    async session({ session, token }: { session: any; token: any }) {
-      if (session.user && token.sub) {
-        session.user.id = token.sub;
-        session.user.username = token.username as string;
-      }
-      return session;
-    },
-    async jwt({ token, user }: { token: any; user: any }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.username = user.username;
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.picture = user.image;
       }
       return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture as string;
+      }
+      return session;
     },
   },
   pages: {
@@ -85,9 +85,8 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  secret: process.env.NEXTAUTH_SECRET || "rahasia-aplikasi-inMedia",
   debug: process.env.NODE_ENV === "development",
-};
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };
