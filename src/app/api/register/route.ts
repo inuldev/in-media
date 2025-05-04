@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { hash } from "@node-rs/argon2";
+import * as bcrypt from "bcryptjs";
 import { generateId } from "lucia";
 
 import prisma from "@/lib/prisma";
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     if (existingUsername) {
       return NextResponse.json(
         { error: "Nama pengguna sudah digunakan" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -41,17 +41,13 @@ export async function POST(req: NextRequest) {
     if (existingEmail) {
       return NextResponse.json(
         { error: "Email sudah digunakan" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    // Hash password
-    const passwordHash = await hash(password, {
-      memoryCost: 12288,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    });
+    // Hash password dengan bcrypt (10 rounds adalah standar yang aman)
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
 
     // Buat user baru
     const userId = generateId(15);
@@ -68,13 +64,13 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { success: true, message: "Pendaftaran berhasil" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Registration error:", error);
     return NextResponse.json(
       { error: "Terjadi kesalahan. Silakan coba lagi." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

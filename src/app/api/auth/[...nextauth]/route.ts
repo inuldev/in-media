@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { verify } from "@node-rs/argon2";
+import * as bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 
 const authOptions: NextAuthOptions = {
@@ -45,7 +45,10 @@ const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const isValid = await verify(credentials.password, user.passwordHash);
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.passwordHash,
+        );
 
         if (!isValid) {
           return null;
